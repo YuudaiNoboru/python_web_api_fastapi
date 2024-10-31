@@ -4,8 +4,9 @@ from fastapi import Form
 from pydantic import BaseModel
 
 class Todo(BaseModel):
-    id: Optional[int]
+    id: int | None = None
     item: str
+
     @classmethod
     def as_form(cls, item: str = Form(...)):
         return cls(item=item)
