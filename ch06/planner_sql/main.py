@@ -3,7 +3,7 @@ from fastapi.responses import RedirectResponse
 from contextlib import asynccontextmanager
 from database.connection import conn
 from routes.users import user_router
-from routes.events import even_router
+from routes.events import event_router
 
 import uvicorn
 
@@ -16,7 +16,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(user_router, prefix="/user")
-app.include_router(even_router, prefix="/event")
+app.include_router(event_router, prefix="/event")
     
 
 @app.get("/")
