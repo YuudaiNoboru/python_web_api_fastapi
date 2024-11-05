@@ -13,7 +13,7 @@ class User(Document):
     class Config:
         schema_extra = {
             "example": {
-                "email": "fastapi@packt.com.",
+                "email": "fastapi@packt.com",
                 "username": "strong!!!",
                 "event": [],
             }
@@ -26,8 +26,7 @@ class UserSingIn(BaseModel):
     class Config:
         schema_extra = {            
                 "example": {
-                    "email": "fastapi@packt.com.",
+                    "email": "fastapi@packt.com",
                     "username": "strong!!!",
-                    "event": [],
                 }
             }

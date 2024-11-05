@@ -17,6 +17,7 @@ async def retrieve_event(id: PydanticObjectId) -> Event:
     event = await event_database.get(id)
     if not event:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Event with supplied ID does not exist.")
+    return event
 
 @event_router.post("/new")
 async def create_event(body: Event) -> dict:
