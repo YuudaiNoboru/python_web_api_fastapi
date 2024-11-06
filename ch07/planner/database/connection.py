@@ -43,6 +43,7 @@ class Database:
         return True
 
 class Settings(BaseSettings):
+    SECRET_KEY: str | None = None
     DATABASE_URL: str | None = None
 
     async def initialize_database(self):

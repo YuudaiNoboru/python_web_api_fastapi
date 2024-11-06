@@ -19,14 +19,6 @@ class User(Document):
             }
         }
 
-class UserSingIn(BaseModel):
-    email: EmailStr
-    password: str
-    
-    class Config:
-        schema_extra = {            
-                "example": {
-                    "email": "fastapi@packt.com",
-                    "username": "strong!!!",
-                }
-            }
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
