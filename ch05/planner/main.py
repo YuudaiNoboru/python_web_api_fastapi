@@ -5,7 +5,7 @@ import uvicorn
 
 app = FastAPI()
 
-#Registro de rotas
+# Registro de rotas
 app.include_router(user_router, prefix="/user")
 app.include_router(even_router, prefix="/event")
 

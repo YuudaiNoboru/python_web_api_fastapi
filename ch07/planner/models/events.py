@@ -1,6 +1,7 @@
 from beanie import Document
 from pydantic import BaseModel
 
+
 class Event(Document):
     title: str
     image: str
@@ -17,12 +18,13 @@ class Event(Document):
                 "description": "We will be discussing the contents of the FastAPI book in this event.\
                 Ensure to come with your own copy to win gifts!",
                 "tags": ["python", "book", "launch"],
-                "location": "Google Meet"
+                "location": "Google Meet",
             }
         }
-    
+
     class Settings:
         name = "events"
+
 
 class EvenUpdate(BaseModel):
     title: str | None = None
@@ -39,6 +41,6 @@ class EvenUpdate(BaseModel):
                 "description": "We will be discussing the contents of the FastAPI book in this event.\
                 Ensure to come with your own copy to win gifts!",
                 "tags": ["python", "book", "launch"],
-                "location": "Google Meet"
+                "location": "Google Meet",
             }
         }

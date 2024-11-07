@@ -2,6 +2,7 @@ from beanie import Document, Link
 from pydantic import BaseModel, EmailStr
 from models.events import Event
 
+
 class User(Document):
     email: EmailStr
     password: str
@@ -18,6 +19,7 @@ class User(Document):
                 "event": [],
             }
         }
+
 
 class TokenResponse(BaseModel):
     access_token: str
