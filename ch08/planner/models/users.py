@@ -6,7 +6,6 @@ from models.events import Event
 class User(Document):
     email: EmailStr
     password: str
-    event: list[Link[Event]] | None = None
 
     class Settings:
         name = "users"
@@ -15,8 +14,7 @@ class User(Document):
         schema_extra = {
             "example": {
                 "email": "fastapi@packt.com",
-                "username": "strong!!!",
-                "event": [],
+                "username": "strong!!!"
             }
         }
 

@@ -1,10 +1,10 @@
 import time
 from datetime import datetime
-from datetime import timezone
-from fastapi import HTTPException, status
-from jose import jwt, JWTError
 
 from database.connection import Settings
+from fastapi import HTTPException, status
+from jose import JWTError, jwt
+from models.users import User
 
 settings = Settings()
 
@@ -15,7 +15,7 @@ def create_access_token(user: str) -> str:
     return token
 
 
-def verify_access_token(token: str) -> dict:
+async def verify_access_token(token: str) -> dict:
     try:
         data = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
         expire = data.get("expires")
@@ -24,11 +24,19 @@ def verify_access_token(token: str) -> dict:
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="No access token supplied",
             )
-        if datetime.now(timezone.utc()) > datetime.fromtimestamp(timezone.utc(expire)):
+        if datetime.utcnow() > datetime.utcfromtimestamp(expire):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN, detail="Token expired!"
             )
+
+        user_exit = await User.find_one(User.email == data["user"])
+        if not user_exit:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid token"
+            )
+
         return data
+
     except JWTError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid token"

@@ -1,21 +1,36 @@
-from beanie import init_beanie, PydanticObjectId
 from typing import Any
+
+from beanie import PydanticObjectId, init_beanie
+from models.events import Event
+from models.users import User
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
-from models.events import Event
-from models.users import User
+
+
+class Settings(BaseSettings):
+    SECRET_KEY: str | None = "default"
+    DATABASE_URL: str | None = None
+
+    async def initialize_database(self):
+        client = AsyncIOMotorClient(self.DATABASE_URL)
+        await init_beanie(
+            database=client.get_default_database(), document_models=[Event, User]
+        )
+
+    class Config:
+        env_file = ".env"
 
 
 class Database:
     def __init__(self, model):
         self.model = model
 
-    async def save(self, document) -> None:
+    async def save(self, document):
         await document.create()
         return
 
-    async def get(self, id: PydanticObjectId) -> Any:
+    async def get(self, id: PydanticObjectId) -> bool:
         doc = await self.model.get(id)
         if doc:
             return doc
@@ -42,17 +57,3 @@ class Database:
             return False
         await doc.delete()
         return True
-
-
-class Settings(BaseSettings):
-    SECRET_KEY: str | None = None
-    DATABASE_URL: str | None = None
-
-    async def initialize_database(self):
-        client = AsyncIOMotorClient(self.DATABASE_URL)
-        await init_beanie(
-            database=client.get_default_database(), document_models=[Event, User]
-        )
-
-    class Config:
-        env_file = ".env"
