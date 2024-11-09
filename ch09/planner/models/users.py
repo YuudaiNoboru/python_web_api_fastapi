@@ -1,4 +1,5 @@
 from beanie import Document
+
 from pydantic import BaseModel, EmailStr
 
 
@@ -11,7 +12,10 @@ class User(Document):
 
     class Config:
         schema_extra = {
-            "example": {"email": "fastapi@packt.com", "username": "strong!!!"}
+            "example": {
+                "email": "fastapi@packt.com",
+                "password": "strong!!!"
+            }
         }
 
 

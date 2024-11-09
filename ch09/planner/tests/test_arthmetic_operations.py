@@ -3,7 +3,7 @@ def add(a: int, b: int) -> int:
 
 
 def subtract(a: int, b: int) -> int:
-    return a - b
+    return b - a
 
 
 def multiply(a: int, b: int) -> int:
@@ -19,7 +19,7 @@ def test_add() -> None:
 
 
 def test_subtract() -> None:
-    assert subtract(5, 2) == 3
+    assert subtract(2, 5) == 3
 
 
 def test_multiply() -> None:
