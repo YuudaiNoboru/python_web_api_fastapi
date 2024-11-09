@@ -26,7 +26,7 @@ class Event(Document):
         name = "events"
 
 
-class EvenUpdate(BaseModel):
+class EventUpdate(BaseModel):
     title: str | None = None
     image: str | None = None
     description: str | None = None

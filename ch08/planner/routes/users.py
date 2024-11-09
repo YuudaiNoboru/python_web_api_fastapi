@@ -1,4 +1,4 @@
-from auth.hash_password import HassPassword
+from auth.hash_password import HashPassword
 from auth.jwt_handler import create_access_token
 from database.connection import Database
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from models.users import TokenResponse, User
 
 user_router = APIRouter(tags=["User"])
-hash_password = HassPassword()
+hash_password = HashPassword()
 user_database = Database(User)
 
 
